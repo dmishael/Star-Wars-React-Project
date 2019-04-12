@@ -7,13 +7,15 @@ import { FETCH_POSTS } from "./Types";
 // app.use(cors())
 
 export const fetchData = () => dispatch => {
-    fetch('https://swapi.co/api/people')
+  console.log("fetching");
+  var proxyURL = "https://secure-temple-38993.herokuapp.com/",
+    targetURL = "https://swapi.co/api/people";
+  fetch(proxyURL + targetURL)
     .then(res => res.json())
     .then(data =>
       dispatch({
         type: FETCH_POSTS,
         payload: data
       })
-    .then(console.log(data))
     );
 };
