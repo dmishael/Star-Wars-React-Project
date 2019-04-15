@@ -12,7 +12,7 @@ class Item extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id
-    // console.log(id)
+    console.log(id)
     axios.get('https://swapi.co/api/people/' + id)
       .then(res => {
       this.setState({
@@ -29,7 +29,7 @@ class Item extends Component {
   }
    
     render() {
-      console.log(this.state.item)
+    
       const item = this.state.item ? (
         <div>
           <h4>{this.state.item.name}</h4>
