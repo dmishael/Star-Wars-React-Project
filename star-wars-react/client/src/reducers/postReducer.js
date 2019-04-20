@@ -1,8 +1,9 @@
-import { FETCH_POSTS } from "../actions/Types";
+import { FETCH_POSTS, ITEMS_LOADING } from "../actions/Types";
 
 const initialState = {
   items: [],
-  tags: ["hello"]
+  tags: ["hello"],
+  loading: false
 };
 
 export default function(state = initialState, action) {
@@ -14,7 +15,11 @@ export default function(state = initialState, action) {
         items: action.payload.results,
         tags: ["hello"]
       };
-
+    case ITEMS_LOADING:
+      return {
+        ...state,
+        loading: true
+      }
     default:
       return state;
   } 

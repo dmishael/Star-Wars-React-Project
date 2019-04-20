@@ -1,4 +1,5 @@
-import { FETCH_POSTS } from "./Types";
+import axios from 'axios';
+import { FETCH_POSTS, ITEMS_LOADING } from "./Types";
 
 // var express = require('express')
 // var cors = require('cors')
@@ -19,3 +20,9 @@ export const fetchData = () => dispatch => {
       })
     );
 };
+
+export const setItemsLoading = () => {
+  return {
+    type: ITEMS_LOADING
+  }
+}
