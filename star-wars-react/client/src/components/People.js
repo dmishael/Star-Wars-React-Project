@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-
-
-
 class People extends Component {
   state = {
-    person: null
+    person: null,
+    planet: null,
+    vehicle: null
   };
 
   componentDidMount() {
@@ -25,43 +24,54 @@ class People extends Component {
     console.log(this.state);
   }
 
-  loadPlanet (person) {
+  loadPlanet(person) {
     console.log(person._owner.memoizedState.person.homeworld);
-    let api = person._owner.memoizedState.person.homeworld
-    console.log(api)
-    axios.get(api).then(
-    res => {
+    let api = person._owner.memoizedState.person.homeworld;
+    console.log(api);
+    axios.get(api).then(res => {
       this.setState({
-        person: res.data
-      });
-    });
-    console.log(this.state)
+        person: "",
+        planet: res.data
+      })
+    })
+    console.log(this.state);
+    
+
   }
-  
+
+  loadVehicle(person) {
+    console.log(person._owner.memoizedState.person.vehicle);
+    let api = person._owner.memoizedState.person.vehicle;
+    console.log(api);
+    axios.get(api).then(res => {
+      this.setState({
+        person: "",
+        planet: res.data
+      })
+    })
+    console.log(this.state);
+
+  }
 
   render() {
+    
     const person = this.state.person ? (
       <div>
         <h4>{this.state.person.name}</h4>
-        
-        {/* <h4>{this.state.person.homeworld}</h4> */}
-        {/* {console.log(this.state.person.homeworld.substring(this.state.person.homeworld.lastIndexOf("/")+1))} */}
       </div>
     ) : (
-      <div>Loading person...</div>
+      <div />
     );
 
     const planet = this.state.planet ? (
       <div>
         <h4>{this.state.planet.name}</h4>
-
-        {/* <h4>{this.state.person.homeworld}</h4> */}
-        {/* {console.log(this.state.person.homeworld.substring(this.state.person.homeworld.lastIndexOf("/")+1))} */}
       </div>
     ) : (
-        <div>Loading person...</div>
-      );
-    console.log(person)
+      <div />
+    )
+
+    console.log(person);
 
     return (
       <div>
@@ -69,17 +79,16 @@ class People extends Component {
           <h1>{person}</h1>
           <h1>{planet}</h1>
 
-          <button onClick={this.loadPlanet.bind(person)}>homeworld</button>
+          {/* <button onClick={this.loadPlanet.bind(person)}>homeworld</button> */}
           <button value={person} onClick={() => this.loadPlanet(person)}>
-            {person}
+            homeworld
           </button>
-          {/* <button onClick={() => loadPlanet(person)}>homeworld</button> */}
 
-          {/* <Router>
-            <Switch>
-              <Route exact path="/planetId component={Home} />
-            </Switch>
-          </Router> */}
+          <button value={person} onClick={() => this.loadVehicle(person)}>
+            vehicle
+          </button>
+
+          
         </div>
       </div>
     );

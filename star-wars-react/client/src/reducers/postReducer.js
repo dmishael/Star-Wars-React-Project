@@ -1,7 +1,8 @@
 import { FETCH_POSTS } from "../actions/Types";
 
 const initialState = {
-  items: []
+  items: [],
+  tags: ["hello"]
 };
 
 export default function(state = initialState, action) {
@@ -10,7 +11,8 @@ export default function(state = initialState, action) {
     console.log('reducer')
       return {
         ...state,
-        items: action.payload.results
+        items: action.payload.results,
+        tags: ["hello"]
       };
 
     default:
