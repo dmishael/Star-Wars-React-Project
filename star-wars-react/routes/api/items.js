@@ -3,13 +3,13 @@ const router = express.Router();
 
 //Tag Model
 
-const Vehicle = require('../../models/Vehicle');
+
 const Tag = require('../../models/Tag');
 
 
 router.get('/tags', (req, res) => {
     Tag.find() 
-    .then(tags => res.json(tags))
+    .then(tags => res.send(tags))
 })
 
 router.post('/tag', (req, res) => {
@@ -17,7 +17,7 @@ router.post('/tag', (req, res) => {
         name: req.body.name,
         message: req.body.message
     })
-    newTag.save().then(tag => res.json(tag))
+    newTag.save().then(tag => res.send(tag))
 })
 
 router.delete('/tag/:id', (req, res) => {
@@ -28,7 +28,7 @@ router.delete('/tag/:id', (req, res) => {
 
 //Vehicle Model
 
-
+const Vehicle = require("../../models/Vehicle");
 
 router.get('/vehicle/:id', (req, res) => {
     Vehicle.findById(req.params.id)
@@ -47,6 +47,15 @@ router.get('/vehicles', (req, res) => {
 const People = require('../../models/People')
 
 // desc Get all planets
+
+router.post("/newperson", (req, res) => {
+  const person = new People({
+    name: req.body.name
+  });
+  person.save().then(person => res.send(person));
+});
+
+
 router.get('/people', (req, res) => {
     People.find({}).populate('vehicles').populate('tags')
         .then(people => res.json(people))
