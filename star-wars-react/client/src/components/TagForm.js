@@ -5,7 +5,6 @@ class TagForm extends Component {
 
     state = {
         tag: {
-            name: '',
             message: ''
         }
     }
@@ -27,7 +26,7 @@ class TagForm extends Component {
         console.log(objectId)
         axios
           .post(`/api/items//person/${objectId}/tag`, input)
-          .then(console.log("sent"));
+          .then(this.props.history.goBack())
 
     }
 
@@ -36,15 +35,6 @@ class TagForm extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="name"
-                            name="name"
-                            value={this.state.tag.name}
-                            onChange={this.handleChange}
-                        />
-                    </div>
                     <div>
                         <input
                             type="text"

@@ -3,8 +3,7 @@ const Schema = mongoose.Schema
 
 // Create Schema
 const Tag = new Schema ({
-    name: String,
-    message: String,
+    message: String
 })
 
-module.exports = mongoose.model('tag', Tag)
+module.exports = mongoose.model('Tag', Tag)

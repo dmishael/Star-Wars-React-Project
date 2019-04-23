@@ -8,14 +8,28 @@ class People extends Component {
     gender: "",
     homeworld: "",
     vehicle: "",
-    id: ""
+    id: "",
+    tags: [{}]
   };
 
   componentDidMount() {
     let id = this.props.match.params.id;
     console.log(id);
-    axios.get("https://swapi.co/api/people/" + id).then(res => {
-      console.log(res.data.name);
+    
+      console.log(id);
+      axios.get(`/api/items/person/${id}`).then(res => {
+        // console.log(res.data.tags);
+        this.setState({
+          name: res.data.name,
+          gender: res.data.gender,
+          homeworld: res.data.homeworld,
+          vehicle: res.data.homeworld,
+          id: id,
+          tags: res.data.tags
+        });
+      }).catch(() => {
+      axios.get("https://swapi.co/api/people/" + id).then(res => {
+        console.log(res.data.name);
         this.setState({
           name: res.data.name,
           gender: res.data.gender,
@@ -23,14 +37,14 @@ class People extends Component {
           vehicle: res.data.homeworld,
           id: id
         });
-    });
-      
+      });
+    })
 
     // .then(data =>
     //   data.setState({
     //   item: data
     // }))
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   loadPlanet(person) {
@@ -47,14 +61,12 @@ class People extends Component {
   }
 
   addTag() {
-    const input = this.state
-    const id = this.state.id
-    axios.post('/api/items/newperson', input)
-      .then(this.props.history.push(`/person/${id}/tag`))
-
+    const input = this.state;
+    const id = this.state.id;
+    axios
+      .post("/api/items/newperson", input)
+      .then(this.props.history.push(`/person/${id}/tag`));
   }
-
-
 
   loadVehicle(person) {
     console.log(person._owner.memoizedState.person.vehicle);
@@ -75,6 +87,11 @@ class People extends Component {
         <h4>{this.state.name}</h4>
         <h4>{this.state.gender}</h4>
         <h4>{this.state.homeworld}</h4>
+        {this.state.tags.map(tag => (
+          <div key={tag._id}>
+            <h3>{tag.message}</h3>
+          </div>
+        ))}
       </div>
     ) : (
       <div />

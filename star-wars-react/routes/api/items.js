@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+require("../../models/Tag");
 
 //Tag Model
 
@@ -67,17 +68,19 @@ router.post("/newperson", (req, res) => {
 });
 
 router.get("/people", (req, res) => {
+
   Person.find({})
     .populate("vehicles")
     .populate("tags")
     .then(people => res.json(people));
 });
 
-router.get("/people/:id", (req, res) => {
-  Person.findById(req.params.id)
-    .populate("vehicles")
+router.get("/person/:id", (req, res) => {
+    const personId = req.params.id
+    Person.findOne({ id: personId })
+    // .populate("vehicles")
     .populate("tags")
-    .then(people => res.json(people));
+    .then(people => res.send(people));
 });
 
 //Planet Model
