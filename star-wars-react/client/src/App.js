@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Home from './components/Home';
-import People from './components/People'
+import People from './components/Show'
+import TagForm from './components/TagForm'
 // import Planet from "./components/Planet";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {Provider} from "react-redux";
@@ -15,6 +16,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/person/:id" component={People} />
+            <Route exact path="/person/:id/tag" component={TagForm} />
             {/* <Route exact path="/planet/:id" component={Planet} /> */}
           </Switch>
         </Router>

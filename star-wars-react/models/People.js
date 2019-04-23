@@ -4,9 +4,9 @@ const Schema = mongoose.Schema
 // Create Schema
 const People = new Schema ({
     name: String,
-    birthyear: String,
     gender: String,
     homeworld: String,
+    id: String,
     vehicles: [{
         type: Schema.Types.ObjectId,
         ref: 'vehicles'
