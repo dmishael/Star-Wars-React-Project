@@ -7,45 +7,35 @@ class People extends Component {
     name: "",
     gender: "",
     homeworld: "",
-    vehicle: "",
-    id: "",
-    tags: [{}]
+    // vehicle: "",
+    id: ""
   };
-
+  
   componentDidMount() {
     let id = this.props.match.params.id;
     console.log(id);
     
-      console.log(id);
-      axios.get(`/api/items/person/${id}`).then(res => {
-        // console.log(res.data.tags);
+  axios.get("https://swapi.co/api/people/" + id).then(res => {
+        console.log("SWAPI")
         this.setState({
           name: res.data.name,
           gender: res.data.gender,
           homeworld: res.data.homeworld,
-          vehicle: res.data.homeworld,
-          id: id,
-          tags: res.data.tags
-        });
-      }).catch(() => {
-      axios.get("https://swapi.co/api/people/" + id).then(res => {
-        console.log(res.data.name);
-        this.setState({
-          name: res.data.name,
-          gender: res.data.gender,
-          homeworld: res.data.homeworld,
-          vehicle: res.data.homeworld,
           id: id
         });
-      });
-    })
+      })
+    }
+      
+      
+
+      
 
     // .then(data =>
     //   data.setState({
     //   item: data
     // }))
     // console.log(this.state);
-  }
+  
 
   loadPlanet(person) {
     console.log(person._owner.memoizedState.person.homeworld);
@@ -87,11 +77,6 @@ class People extends Component {
         <h4>{this.state.name}</h4>
         <h4>{this.state.gender}</h4>
         <h4>{this.state.homeworld}</h4>
-        {this.state.tags.map(tag => (
-          <div key={tag._id}>
-            <h3>{tag.message}</h3>
-          </div>
-        ))}
       </div>
     ) : (
       <div />
